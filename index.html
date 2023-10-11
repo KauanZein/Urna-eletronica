@@ -6,6 +6,28 @@
     <title>Urna Eletrônica</title>
 </head>
 <body>
+    <section>
+        <form action="">
+            <div class="controle-form">
+                <label for="nota1">Nota 1:</label>
+                <input type="text" id="nota1">
+            </div>
+                
+            <div class="controle-form">
+                <label for="nota2">Nota 2:</label> 
+                <input type="text" id="nota2">
+            </div>
+                
+            <div class="controle-form">
+                <label for="nota3">Nota 3:</label> 
+                <input type="text" id="nota3">
+            </div>
+                
+            <button type="button" onclick="mediaAluno()">Calcular</button>
+        </form>
+        <div id="resultado"></div>
+    </section>
+    
     <button type="button" onclick="urnaEletronica()">Iniciar</button>
     <script src="./urnaEletronica.js"></script>
 </body>
