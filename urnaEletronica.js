@@ -22,7 +22,7 @@ function urnaEletronica() {
     let candidato3 = 0;
     let brancos = 0;
     let nulos = 0;
-
+    let encerrar;
     do {
         opcao = parseInt(prompt('Digite a opção:'));
         console.log('Linha de instrução');
@@ -57,11 +57,11 @@ function urnaEletronica() {
         const totalvotos = (candidato1 + candidato2 + candidato3 + brancos + nulos);
         console.log('Total de votos', totalvotos);
 
-        console.log('percentual de votos candidato 1', ((candidato1 / totalvotos * 100).toFixed(2)) + '%');
-        console.log('percentual de votos candidato 2', ((candidato2 / totalvotos * 100).toFixed(2)) + '%');
-        console.log('percentual de votos candidato 3', ((candidato3 / totalvotos * 100).toFixed(2)) + '%');
-        console.log('percentual de votos em branco', ((brancos / totalvotos * 100).toFixed(2)) + '%');
-        console.log('percentual de votos nulos', ((nulos / totalvotos * 100).toFixed(2)) + '%');
+        console.log('percentual de votos candidato 1:', ((candidato1 / totalvotos * 100).toFixed(2)) + '%');
+        console.log('percentual de votos candidato 2:', ((candidato2 / totalvotos * 100).toFixed(2)) + '%');
+        console.log('percentual de votos candidato 3:', ((candidato3 / totalvotos * 100).toFixed(2)) + '%');
+        console.log('percentual de votos em branco:', ((brancos / totalvotos * 100).toFixed(2)) + '%');
+        console.log('percentual de votos nulos:', ((nulos / totalvotos * 100).toFixed(2)) + '%');
         
         
 }
