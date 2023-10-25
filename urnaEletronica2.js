@@ -15,8 +15,11 @@ function urnaEletronica(){
     let nomeCandidato3;
     let encerrarVotacao;
     let senhaMesario;
+    let confirmarVoto;
+    let dataHInicio = new Date;
+    let dataHFim = new Date;
 
-    console.log('Inicio do programa');
+    console.log('Inicio do programa' + dataHInicio.toLocaleString);
 
     console.clear();
     console.log('** CONFIGURAÇÃO DA URNA **');
@@ -36,6 +39,15 @@ function urnaEletronica(){
     } while (!confirm('Se os nomes dos candidatos estão corretos, clique "OK" para continuar ou "CANCELAR" para voltar e digitar novamente'));
 
     do {
+        voto = parseInt(prompt('digite sua opção de voto e após votar digite a senha do mesario novamente para encerrar a votação: \n'
+            + '(1) - ' + nomeCandidato1 + '\n'
+            + '(2) - ' + nomeCandidato2 + '\n'
+            + '(3) - ' + nomeCandidato3 + '\n'
+            + '(5) branco \n'
+            ));
+            
+        dataHInicio = dataHoraAtual();
+        
         console.clear();
         console.log('Opções de voto');
         console.log('(1) Candidato 1');
@@ -43,20 +55,48 @@ function urnaEletronica(){
         console.log('(3) Candidato 3');
         console.log('(5) Voto em branco');
         
-        voto = parseInt(prompt('Digite sua opção de voto e após votar digite a senha do mesario novamente para encerrar a votação:'));
-        
-        totalVotos++
+        console.log('Linha de instrução');
+        totalVotos++;
         
         if (voto === 1) {
-            votosCandidato1++;
+            confirmarVoto = confirm(' O seu voto realmente é em ' + nomeCandidato1);
+            if (confirmarVoto) {
+                votosCandidato1++;
+                alert(' Voto confirmado com sucesso para ' + nomeCandidato1);
+            } else {
+                totalVotos--;
+            }
+            
         } else if (voto === 2) {
-            votosCandidato2++;
+            confirmarVoto = confirm(' O seu voto realmente é em ' + nomeCandidato2);
+            if (confirmarVoto) {
+                votosCandidato2++;
+                alert(' Voto confirmado com sucesso para ' + nomeCandidato2);
+            } else {
+                totalVotos--;
+            }
+
         } else if (voto === 3) {
-            votosCandidato3++;
+            confirmarVoto = confirm(' O seu voto realmente é em ' + nomeCandidato3);
+            if (confirmarVoto) {
+                votosCandidato3++;
+                alert(' Voto confirmado com sucesso para ' + nomeCandidato3);
+            } else {
+                totalVotos--;
+            }
+
         } else if (voto === 5) {
-            votosBrancos++; 
+            confirmarVoto = confirm(' O seu voto realmente é em branco ');
+            if (confirmarVoto) {
+                votosBrancos++; 
+                alert(' Voto confirmado com sucesso para');
+            } else {
+                totalVotos--;
+            }
+                
         } else if (voto === senhaMesario) {
             
+        
            encerrarVotacao = prompt('Deseja REALMENTE encerrar a votação? Digite [S] para Sim ou [N] para Não').toUpperCase();
 
            if (encerrarVotacao !== 'S' && encerrarVotacao !== 'N') {
@@ -75,6 +115,8 @@ function urnaEletronica(){
     }
     
     } while (encerrarVotacao !== 'S');
+
+    dataHFim = dataHoraAtual();
     
     console.clear();
     console.log('** BOLETIM DE URNA **');
@@ -110,6 +152,11 @@ function urnaEletronica(){
 } else {
     console.log('Não houve votação nesta urna');
     
+}
+
+function dataHoraAtual() {
+    const dataAtual = new Date();
+    return dataAtual + " " + horaAtual;
 }
 
 console.log('Fim do programa');
