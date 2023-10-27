@@ -1,4 +1,4 @@
-function urnaEletronica(){
+function urnaEletronica() {
     
     let votosCandidato1 = 0;
     let votosCandidato2 = 0;
@@ -16,21 +16,40 @@ function urnaEletronica(){
     let encerrarVotacao;
     let senhaMesario;
     let confirmarVoto;
-    let dataHInicio = new Date;
-    let dataHFim = new Date;
+    let opcaoNome;
+    let primeiraConfiguração = true;
 
-    console.log('Inicio do programa' + dataHInicio.toLocaleString);
+    console.log('Inicio do programa ' + dataHoraAtual().toLocaleString());
 
-    console.clear();
     console.log('** CONFIGURAÇÃO DA URNA **');
 
     senhaMesario = parseInt(prompt('Digite a sua senha do mesario:'));
     
     do {
-        nomeCandidato1 = prompt('Digite o nome do candidato 1:');
-        nomeCandidato2 = prompt('Digite o nome do candidato 2:');
-        nomeCandidato3 = prompt('Digite o nome do candidato 3:');
+        if (primeiraConfiguração) {
+            nomeCandidato1 = prompt('Digite o nome do candidato 1:');
+            nomeCandidato2 = prompt('Digite o nome do candidato 2:');
+            nomeCandidato3 = prompt('Digite o nome do candidato 3:');
+            primeiraConfiguração = false;
+        } else {
+            opcaoNome = parseInt(prompt(
+                'Qual dos nomes deseja alternar?\n\n' +
+                '(1) - ' + nomeCandidato1 + '\n' +
+                '(2) - ' + nomeCandidato2 + '\n' +
+                '(3) - ' + nomeCandidato3 + '\n' 
+            ));
 
+            if (opcaoNome === 1)
+                nomeCandidato1 = prompt('Digite o nome do candidato 1:');
+            else if (opcaoNome === 2)
+                nomeCandidato2 = prompt('Digite o nome do candidato 2:');
+            else if (opcaoNome === 3)
+                nomeCandidato3 = prompt('Digite o nome do candidato 3:');
+            else
+                console.log('Opção inválida!');
+        }
+        
+        console.clear();        
         console.log('** NOMES DOS CANDIDATOS **');
         console.log('Candidato 1: ' + nomeCandidato1);
         console.log('Candidato 2: ' + nomeCandidato2);
@@ -39,23 +58,17 @@ function urnaEletronica(){
     } while (!confirm('Se os nomes dos candidatos estão corretos, clique "OK" para continuar ou "CANCELAR" para voltar e digitar novamente'));
 
     do {
-        voto = parseInt(prompt('digite sua opção de voto e após votar digite a senha do mesario novamente para encerrar a votação: \n'
-            + '(1) - ' + nomeCandidato1 + '\n'
-            + '(2) - ' + nomeCandidato2 + '\n'
-            + '(3) - ' + nomeCandidato3 + '\n'
-            + '(5) branco \n'
-            ));
-            
-        dataHInicio = dataHoraAtual();
         
         console.clear();
         console.log('Opções de voto');
-        console.log('(1) Candidato 1');
-        console.log('(2) Candidato 2');
-        console.log('(3) Candidato 3');
+        console.log('(1) Candidato 1: ' + nomeCandidato1);
+        console.log('(2) Candidato 2: ' + nomeCandidato2);
+        console.log('(3) Candidato 3: ' + nomeCandidato3);
         console.log('(5) Voto em branco');
         
-        console.log('Linha de instrução');
+        voto = parseInt(prompt('digite sua opção de voto e após votar digite a senha do mesario novamente para encerrar a votação: \n'
+        ));
+        
         totalVotos++;
         
         if (voto === 1) {
@@ -100,10 +113,10 @@ function urnaEletronica(){
            encerrarVotacao = prompt('Deseja REALMENTE encerrar a votação? Digite [S] para Sim ou [N] para Não').toUpperCase();
 
            if (encerrarVotacao !== 'S' && encerrarVotacao !== 'N') {
-            alert('Opção inválida');
-        }
+                alert('Opção inválida');
+            }
         
-        totalVotos--;
+            totalVotos--;
         
         } else {
             
@@ -116,7 +129,7 @@ function urnaEletronica(){
     
     } while (encerrarVotacao !== 'S');
 
-    dataHFim = dataHoraAtual();
+    
     
     console.clear();
     console.log('** BOLETIM DE URNA **');
@@ -155,10 +168,11 @@ function urnaEletronica(){
 }
 
 function dataHoraAtual() {
-    const dataAtual = new Date();
-    return dataAtual + " " + horaAtual;
+    
+    let dataAtual = new Date();
+    return dataAtual;
 }
 
-console.log('Fim do programa');
+console.log('Fim do programa ' + dataHoraAtual().toLocaleString());
 
 }
