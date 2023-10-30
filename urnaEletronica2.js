@@ -1,3 +1,32 @@
+function dataHoraAtual() {
+    
+    const dataAtual = new Date();
+    return dataAtual;
+}
+
+function verificarIntegridadeUrna() {
+    
+    fetch('./urnaEletronica.js')
+        .then(conteudo => conteudo.text())
+        .then(conteudo => CryptoJS.SHA256(conteudo).toString())
+        .then(hashUrnaAtual => {
+            fetch('./hashVerificado')
+                .then(conteudo => conteudo.text())
+                .then(hashVerificado => {
+                    if (hashUrnaAtual === hashVerificado) {
+                        console.log('Hash verificado, urna íntegra.')
+                        
+                    } else {
+                        console.log('HASHES DIFERENTES, URNA ADULTERADA!');
+                        console.log('hash esperado: ${hashVerificado}');
+                        console.log('hash da urna: ${hashUrnaAtual}');
+                    }
+                })
+
+        });
+
+}
+
 function urnaEletronica() {
     
     let votosCandidato1 = 0;
@@ -18,8 +47,11 @@ function urnaEletronica() {
     let confirmarVoto;
     let opcaoNome;
     let primeiraConfiguração = true;
+    let dataHoraInicial;
+    let dataHoraFinal;
 
-    console.log('Inicio do programa ' + dataHoraAtual().toLocaleString());
+    console.log('Inicio do programa ');
+    dataHoraInicial = dataHoraAtual();
 
     console.log('** CONFIGURAÇÃO DA URNA **');
 
@@ -167,12 +199,7 @@ function urnaEletronica() {
     
 }
 
-function dataHoraAtual() {
-    
-    let dataAtual = new Date();
-    return dataAtual;
-}
-
-console.log('Fim do programa ' + dataHoraAtual().toLocaleString());
+console.log('Fim do programa ');
+dataHoraFinal = dataHoraAtual();
 
 }
