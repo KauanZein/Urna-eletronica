@@ -6,7 +6,7 @@ function dataHoraAtual() {
 
 function verificarIntegridadeUrna() {
     
-    fetch('./urnaEletronica.js')
+    fetch('./urnaEletronica2.js')
         .then(conteudo => conteudo.text())
         .then(conteudo => CryptoJS.SHA256(conteudo).toString())
         .then(hashUrnaAtual => {
@@ -29,27 +29,9 @@ function verificarIntegridadeUrna() {
 
 function urnaEletronica() {
     
-    let votosCandidato1 = 0;
-    let votosCandidato2 = 0;
-    let votosCandidato3 = 0;
-    let votosBrancos = 0;
-    let votosNulos = 0;
-    let totalVotos = 0;
-    let voto;
-    let ganhador = true;
-    let nomeGanhador;
-    let votosGanhador;
-    let nomeCandidato1;
-    let nomeCandidato2;
-    let nomeCandidato3;
-    let encerrarVotacao;
-    let senhaMesario;
-    let confirmarVoto;
-    let opcaoNome;
-    let primeiraConfiguração = true;
-    let dataHoraInicial;
-    let dataHoraFinal;
+    let votosCandidato1 = 0, votosCandidato2 = 0, votosCandidato3 = 0, votosBrancos = 0, votosNulos = 0, totalVotos = 0, voto, ganhador = true, nomeGanhador = "", votosGanhador, nomeCandidato1, nomeCandidato2, nomeCandidato3, encerrarVotacao, senhaMesario, confirmarVoto, opcaoNome, primeiraConfiguração = true, dataHoraInicial, dataHoraFinal;
 
+    
     console.log('Inicio do programa ');
     dataHoraInicial = dataHoraAtual();
 
@@ -98,8 +80,7 @@ function urnaEletronica() {
         console.log('(3) Candidato 3: ' + nomeCandidato3);
         console.log('(5) Voto em branco');
         
-        voto = parseInt(prompt('digite sua opção de voto e após votar digite a senha do mesario novamente para encerrar a votação: \n'
-        ));
+        voto = parseInt(prompt('digite sua opção de voto: \n'));
         
         totalVotos++;
         
@@ -161,7 +142,7 @@ function urnaEletronica() {
     
     } while (encerrarVotacao !== 'S');
 
-    
+    dataHoraFinal = dataHoraAtual();
     
     console.clear();
     console.log('** BOLETIM DE URNA **');
@@ -199,7 +180,11 @@ function urnaEletronica() {
     
 }
 
+console.log(`Data e hora do início da votação: ${dataHoraInicial}`);
+console.log(`Data e hora do fim da votação: ${dataHoraFinal}`);
+
+verificarIntegridadeUrna();
+
 console.log('Fim do programa ');
-dataHoraFinal = dataHoraAtual();
 
 }
