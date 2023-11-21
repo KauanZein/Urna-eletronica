@@ -10,25 +10,38 @@ async function verificarIntegridadeUrna() {
     let hashVerificado;
     
     await fetch('./urnaEletronica2.js')
-        .then(conteudo => conteudo.text())
-        .then(conteudo => CryptoJS.SHA256(conteudo).toString())
-        .then(conteudo => hashUrnaAtual = conteudo);
+        .then(response => response.text())
+        .then(response => CryptoJS.SHA256(response).toString())
+        .then(response => hashUrnaAtual = response);
     
     await fetch('./hashVerificado')
-        .then(conteudo => conteudo.text())
-        .then(conteudo => hashVerificado = conteudo);
+        .then(response => response.text())
+        .then(response => hashVerificado = response);
     
     return {    
-        status: hashUrnaAtual === hashVerificado,
         hashUrnaAtual: hashUrnaAtual,
-        hashVerificado: hashVerificado
+        hashVerificado: hashVerificado,
+        status: hashUrnaAtual === hashVerificado,
     };
 
 
 }
 
+async function audioConfirmacao() {
+    const audio = new Audio('./confirmacao.mp3');
+    await audio.play();
+}
+
         
  async function urnaEletronica() {
+
+    let candidatos;
+    let settings;
+
+    await fetch('./database.json').then(data => data.json()).then(data => {
+        candidatos = data.candidatos;
+        settings = data.settings;
+    });
     
     let votosCandidato1 = 0, votosCandidato2 = 0, votosCandidato3 = 0, votosBrancos = 0, votosNulos = 0, totalVotos = 0, voto, ganhador = true, nomeGanhador = "", votosGanhador, nomeCandidato1, nomeCandidato2, nomeCandidato3, encerrarVotacao, senhaMesario, confirmarVoto, opcaoNome, primeiraConfiguração = true, dataHoraInicial, dataHoraFinal;
 
